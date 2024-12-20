@@ -1,0 +1,10 @@
+{
+  "name": "aave-suppliers",
+  "version": "1.0.0",
+  "description": "Get Aave suppliers from blockchain events",
+  "main": "get_addresses.js",
+  "dependencies": {
+    "ethers": "^5.7.2",
+    "dotenv": "^16.3.1"
+  }
+}
