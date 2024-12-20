@@ -1,9 +1,11 @@
 # Get-addresses
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js Version](https://img.shields.io/node/v/ethers.svg)](https://nodejs.org)
+
 A Node.js tool to efficiently extract and track addresses that have interacted with smart contracts across multiple blockchain networks by monitoring specific events.
 
 ## Features
-
 - 🔄 Parallel processing of multiple networks
 - 📊 Real-time progress tracking
 - 💾 Automatic data persistence (saves every 2% progress)
@@ -13,12 +15,18 @@ A Node.js tool to efficiently extract and track addresses that have interacted w
 - 🛡️ Robust error handling and retry mechanisms
 
 ## Prerequisites
-
 - Node.js v16 or higher
 - npm (Node Package Manager)
 
-## Installation
+### System Requirements
+- Memory: At least 4GB RAM recommended for large networks
+- Storage: Sufficient space for JSON files (varies by network size)
 
+## Dependencies
+- ethers.js: Ethereum wallet implementation and utilities
+- fs/promises: File system operations
+
+## Installation
 1. Clone the repository:
 ```bash
 git clone https://github.com/elitex45/get-addresses.git
@@ -30,10 +38,19 @@ cd get-addresses
 npm install
 ```
 
+## Getting Started
+To track addresses for your own smart contract:
+
+1. Modify the event signature:
+```javascript
+const YOUR_EVENT = ethers.utils.id("YourEvent(address,uint256)");
+```
+
+2. Update contract addresses and deployment blocks
+3. Add your RPC endpoints
+
 ## Configuration
-
 The script requires the following configuration for each network:
-
 - Deployment block numbers
 - RPC endpoints
 - Contract addresses
@@ -61,7 +78,6 @@ const POOL_ADDRESSES = {
 ```
 
 ## Usage
-
 Run the script:
 ```bash
 node get_addresses.js
@@ -73,8 +89,18 @@ The script will:
 3. Save network-specific data in separate JSON files
 4. Maintain a summary file with cross-network statistics
 
-## Output Files
+### Sample Output
+```
+Network Progress:
+ethereum  : 45.23% - 1234 unique addresses
+polygon   : 67.89% - 5678 unique addresses
+base      : 12.34% - 910 unique addresses
+arbitrum  : 89.01% - 2345 unique addresses
+optimism  : 23.45% - 3456 unique addresses
+...
+```
 
+## Output Files
 The script generates the following files:
 
 1. Network-specific files:
@@ -90,7 +116,6 @@ aave_summary_stats.json
 ```
 
 ### File Format
-
 Network-specific files (`suppliers_network.json`):
 ```json
 {
@@ -136,15 +161,23 @@ Summary file (`aave_summary_stats.json`):
 - Dynamic batch size adjustment
 - Preserves partial progress on network failures
 
-## Contributing
+## Limitations
+- RPC rate limits may affect processing speed
+- Large datasets may require significant memory
+- Some RPC providers may have historical data limitations
 
+## Troubleshooting
+- If encountering RPC errors, try reducing batch size in the code
+- For memory issues, adjust CHUNK_SIZE in the code
+- For timeout errors, check RPC endpoint stability
+- If file writing fails, ensure sufficient disk space and permissions
+
+## Contributing
 Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
-
 MIT
 
 ## Acknowledgments
-
 - Thanks to Claude! (https://claude.ai/new)
 - Built using ethers.js
